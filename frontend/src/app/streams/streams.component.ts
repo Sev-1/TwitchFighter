@@ -32,23 +32,3 @@ export class StreamsComponent implements OnInit {
     });
   }
 }
-
-@Injectable({
-  providedIn: 'root'
-})
-export class StreamService {
-  private streamBaseUrl: string = `${environment.baseUrl}/streams`;
-
-  constructor(
-    private http: HttpClient
-  ) { }
-
-  async getStreams() : Promise<IStream[]>{
-    const url = this.streamBaseUrl;
-    try {
-      return await this.http.get<IStream[]>(url).toPromise<IStream[]>();
-    } catch {
-      return Promise.resolve([]);
-    }
-  }
-}
