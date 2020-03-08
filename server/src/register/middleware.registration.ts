@@ -18,6 +18,6 @@ const corsOptions: cors.CorsOptions = {
 export function RegisterMiddleware(app: express.Express) {
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
-    app.use(cors(corsOptions));
+    // app.use(cors(corsOptions));
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(jsConfig));
 }
