@@ -3,6 +3,7 @@ import * as mongoose from 'mongoose';
 import * as bodyParser from 'body-parser';
 import { RegisterControllers } from './registerControllers';
 import { RegisterMiddleware } from './register/middleware.registration';
+import * as environment from "./environments/environment";
 
 const app = express();
 const port = 8080; // default port to listen
@@ -17,7 +18,7 @@ const registeredControllers = new RegisterControllers(app);
 RegisterMiddleware(app);
 
 // start the Express server
-app.listen(port, async () => {
+app.listen(environment.port, async () => {
     const options: mongoose.ConnectionOptions = {
       useNewUrlParser: true,
     };
