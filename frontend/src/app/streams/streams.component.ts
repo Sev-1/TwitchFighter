@@ -1,10 +1,6 @@
 import { Component, OnInit, SecurityContext } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
 import { IStream } from 'src/app/streams/models/stream.model'
 import { mockStreams } from 'src/app/streams/models/stream.mock'
-import { Injectable } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
