@@ -1,7 +1,7 @@
 import * as bodyParser from "body-parser";
 import * as express from "express";
 import * as swaggerUi from "swagger-ui-express";
-import cors from "cors";
+import * as cors from "cors";
 import * as env from "../environments/environment";
 
 const jsConfig = require('../swagger.json');
