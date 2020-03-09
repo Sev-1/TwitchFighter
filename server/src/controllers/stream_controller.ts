@@ -37,6 +37,7 @@ export class StreamController implements ControllerRouter {
     async getStreams(req: express.Request, res: express.Response){
         try{
             const streams = await Stream.find();
+            console.log("Returning streams: " + JSON.stringify(streams));
             res.json(streams);
         }catch(error){
             const e = JSON.stringify(error);

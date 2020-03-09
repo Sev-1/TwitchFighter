@@ -25,9 +25,9 @@ export class StreamsComponent implements OnInit {
   }
 
   async ngOnInit() {
-    let data = await this.streamService.getStreams();
-    console.log("Data from stream service is: " + JSON.stringify(data));
-    data.forEach(stream => {
+    this.streams = await this.streamService.getStreams();
+    // console.log("Data from stream service is: " + JSON.stringify(data));
+    this.streams.forEach(stream => {
       stream.streamUrl = "https://player.twitch.tv/?channel=" + stream.twitchUserName;
       stream.href = stream.streamUrl;
       // stream.href = 
@@ -36,6 +36,7 @@ export class StreamsComponent implements OnInit {
       console.log("Url " + stream.streamUrl + " -- safe url: " + stream.safeUrl);
       console.log("href of " + stream.href + " -- safe url: " + stream.safeHref);
     });
+    
   }
 }
 
