@@ -8,6 +8,7 @@ import { UserComponent } from './user/user.component';
 
 
 export const routes: Routes = [
+  { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'streams', component: StreamsComponent },
   { path: 'leaderboard', component: LeaderboardComponent },
