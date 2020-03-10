@@ -22,7 +22,7 @@ export class StreamsComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.streams = await this.streamService.getStreams();
+    this.streams = mockStreams;
     console.log("Streams received from back end are: " + JSON.stringify(this.streams));
     this.streams.forEach(stream => {
       stream.streamUrl = "https://player.twitch.tv/?channel=" + stream.twitchUserName;
