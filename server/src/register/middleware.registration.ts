@@ -7,7 +7,7 @@ import * as env from "../environments/environment";
 const jsConfig = require('../swagger.json');
 
 const allowList: string[] = [
-    'http://localhost:4200',
+    'http://localhost:4400',
     env.allowedCors,
 ];
 

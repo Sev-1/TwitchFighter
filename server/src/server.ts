@@ -12,7 +12,7 @@ const port = 8080; // default port to listen
 const allowedCors = process.env.AllowedCors || 'https://twitchfigher-frontend.azurewebsites.net';
 
 const allowList: string[] = [
-  'http://localhost:4200',
+  'http://localhost:4400',
   '*twitch*',
   allowedCors, //'https://front-end-w.azurewebsites.net',
 ];
