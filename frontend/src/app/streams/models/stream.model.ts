@@ -5,7 +5,7 @@ export interface IStream {
     streamUrl: string;
     _id: string;
     __v: number;
-    href: string;
+    href?: string;
     safeUrl?: SafeUrl;
     safeHref?: SafeUrl;
     
