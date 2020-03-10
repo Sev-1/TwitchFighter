@@ -16,20 +16,25 @@ export class StreamsComponent implements OnInit {
   streams: IStream[];
 
   constructor(
+    private streamService: StreamService,
     private sanitizer: DomSanitizer
   ) { 
-    this.sanitizer = sanitizer;
-    this.streams = mockStreams;
   }
 
   async ngOnInit() {
+    this.streams = await this.streamService.getStreams();
+    console.log("Streams received from back end are: " + JSON.stringify(this.streams));
     this.streams.forEach(stream => {
-      stream.href = "https://www.twitch.tv/" + stream.twitchUserName;
+      stream.streamUrl = "https://player.twitch.tv/?channel=" + stream.twitchUserName;
+      stream.href = stream.streamUrl;
+      console.log("Stream info after set href: " + JSON.stringify(stream));
+      console.log("StreamUrl is: " + stream.streamUrl);
       stream.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(stream.streamUrl);
       stream.safeHref = this.sanitizer.bypassSecurityTrustResourceUrl(stream.href);
       console.log("Url " + stream.streamUrl + " -- safe url: " + stream.safeUrl);
       console.log("href of " + stream.href + " -- safe url: " + stream.safeHref);
     });
+    console.log("this streams after the sanitize: " + JSON.stringify(this.streams));
   }
 }
 
@@ -37,7 +42,7 @@ export class StreamsComponent implements OnInit {
   providedIn: 'root'
 })
 export class StreamService {
-  private streamBaseUrl: string = `${environment.baseUrl}/streams`;
+  private streamBaseUrl: string = `${environment.baseUrl}/stream`;
 
   constructor(
     private http: HttpClient
