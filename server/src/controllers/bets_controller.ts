@@ -1,11 +1,21 @@
 import * as express from 'express';
 import { ControllerRouter } from './controller_router';
 import Bets, { Bets as BetsInterface } from '../models/bets.model';
+import User, { User as UsersInterface } from '../models/user.model';
+import * as _ from 'lodash';
+
+interface ResultLeaderboard {
+    _id: any;
+    totalBet: number;
+    totalWon: number;
+    userName: string;
+}
 
 export class BetsController implements ControllerRouter {
     public router = express.Router();
     public route = '/bets';
-
+    public leaderboard: ResultLeaderboard[];
+    
     constructor() {
         this.initializeRoutes();
     }
@@ -16,7 +26,7 @@ export class BetsController implements ControllerRouter {
         this.router.get('/totalStats/:userId', this.getTotalStatsUserBets);
         this.router.get('/totalWon/:userId', this.getTotalWonUserBets);
         this.router.get('/totalLost/:userId', this.getTotalLostUserBets);
-        this.router.get('/', this.getAllBets);
+        this.router.get('/', this.getLeaderboardStats);
         this.router.post('/', this.createBet);
         this.router.patch('/:id', this.updateBetsResult);
         this.router.delete('/:id', this.deleteBet);
@@ -169,7 +179,7 @@ export class BetsController implements ControllerRouter {
      *           items:
      *              $ref: '#/definitions/Bets'
      */
-    async getTotalWonUserBets(req: express.Request, res: express.Response, next: express.NextFunction) {
+    async getTotalWonUserBets(req: express.Request, res: express.Response, _next: express.NextFunction) {
         const userId = req.params.userId;
         try {
             const result = await Bets.aggregate([
@@ -194,6 +204,43 @@ export class BetsController implements ControllerRouter {
         }
     }
 
+    async getLeaderboardStats(_req: express.Request, res: express.Response, _next: express.NextFunction) {
+        try {
+            const results = await Bets.aggregate([
+                {
+                    $match: {
+                        betResult: "Win",
+                    }
+                }, {
+                    $group: {
+                        _id: { userId: "$userId" },
+                        totalBet: { $sum: "$betAmount" },
+                        totalWon: { $sum: 1 }
+                    }
+                }, {
+                    $sort: {
+                        totalBet: -1,
+                    },
+                }
+            ]);
+            const leaderboard: ResultLeaderboard[] = [];
+            for (const result of results) {
+                const name = await User.findById({_id: result._id.userId});
+                leaderboard.push({
+                    _id: _.get(result,'_id'),
+                    totalBet: result.totalBet,
+                    totalWon: result.totalWon,
+                    userName: `${name.firstName} ${name.lastName}`,
+                });
+            };
+            res.send(leaderboard);
+        }
+        catch (error) {
+            const e = JSON.stringify(error);
+            console.error(`Failed to get users ${e}`);
+        }
+    }
+    
     /**
      * @swagger
      *
