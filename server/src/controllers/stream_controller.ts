@@ -13,7 +13,8 @@ export class StreamController implements ControllerRouter {
     }
 
     initializeRoutes() {
-        this.router.get('/', this.getStreams);
+        this.router.get('/', this.getFeaturedStreams);
+        this.router.get('/all', this.getStreams);
         this.router.post('/', this.createStream);
         this.router.patch('/:id', this.updateStream);
     }
@@ -39,6 +40,32 @@ export class StreamController implements ControllerRouter {
             const streams = await Stream.find();
             console.log("Returning streams: " + JSON.stringify(streams));
             res.json(streams);
+        }catch(error){
+            const e = JSON.stringify(error);
+            console.error(`Failed to get streams ${e}`);
+        }
+    }
+
+    /**
+     * @swagger
+     *
+     * /getFeaturedStreams:
+     *   get:
+     *     description: Gets the 3 featured stream data
+     *     produces:
+     *       - application/json
+     *     responses:
+     *       200:
+     *         response:
+     *           type: array
+     *           items:
+     *              $ref: '#/definitions/Stream'
+     */
+    async getFeaturedStreams(req: express.Request, res: express.Response){
+        try{
+            const streams = await Stream.find();
+            console.log("Returning streams: " + JSON.stringify(streams));
+            res.json(streams.slice(0,3));
         }catch(error){
             const e = JSON.stringify(error);
             console.error(`Failed to get streams ${e}`);
