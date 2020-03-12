@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { IStream } from 'src/app/streams/models/stream.model'
 import { mockStreams } from 'src/app/streams/models/stream.mock'
 import { Injectable } from '@angular/core';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-streams',
@@ -22,7 +22,7 @@ export class StreamsComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.streams = mockStreams;
+    this.streams = await this.streamService.getStreams();
     console.log("Streams received from back end are: " + JSON.stringify(this.streams));
     this.streams.forEach(stream => {
       stream.streamUrl = "https://player.twitch.tv/?channel=" + stream.twitchUserName;
