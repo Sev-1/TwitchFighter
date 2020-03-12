@@ -14,7 +14,6 @@ const allowedCors = process.env.AllowedCors || 'https://twitchfigher.azurewebsit
 const allowList: string[] = [
   'http://localhost:4200',
   'http://localhost:8080',
-  '*twitch*',
   allowedCors, //'https://front-end-w.azurewebsites.net',
 ];
 
