@@ -9,7 +9,7 @@ import * as environment from "./environments/environment";
 const app = express();
 const port = 8080; // default port to listen
 
-const allowedCors = process.env.AllowedCors || 'https://twitchfigher.azurewebsites.net' || 'https://twitchfigher-middleware.azurewebsites.net;
+const allowedCors = process.env.AllowedCors || 'https://twitchfigher.azurewebsites.net' || 'https://twitchfigher-middleware.azurewebsites.net';
 
 const allowList: string[] = [
   'http://localhost:4200',
