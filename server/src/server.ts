@@ -11,6 +11,7 @@ const port = 8080; // default port to listen
 
 const allowedCors = process.env.AllowedCors || 'https://twitchfigher.azurewebsites.net' || 'https://twitchfigher-middleware.azurewebsites.net';
 
+console.log("Allowed cors is: " + allowedCors);
 const allowList: string[] = [
   'http://localhost:4200',
   'http://localhost:8080',
@@ -20,6 +21,8 @@ const allowList: string[] = [
   'http://twitchfigher-middleware.azurewebsites.net',
   allowedCors, //'https://front-end-w.azurewebsites.net',
 ];
+
+console.log("allowList is: " + allowList);
 
 const corsOptions = {
   origin: allowList
@@ -31,6 +34,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
+
+app.options("*", cors);
 
 const registeredControllers = new RegisterControllers(app);
 RegisterMiddleware(app);
