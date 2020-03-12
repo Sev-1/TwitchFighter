@@ -9,20 +9,13 @@ import * as environment from "./environments/environment";
 const app = express();
 const port = 8080; // default port to listen
 
-const allowedCors = process.env.AllowedCors || 'https://twitchfigher.azurewebsites.net' || 'https://twitchfigher-middleware.azurewebsites.net';
+const allowedCors = process.env.AllowedCors || 'https://twitchfighter.azurewebsites.net';
 
-console.log("Allowed cors is: " + allowedCors);
 const allowList: string[] = [
   'http://localhost:4200',
   'http://localhost:8080',
-  'https://twitchfigher.azurewebsites.net',
-  'https://twitchfigher-middleware.azurewebsites.net',
-  'http://twitchfigher.azurewebsites.net',
-  'http://twitchfigher-middleware.azurewebsites.net',
-  allowedCors, //'https://front-end-w.azurewebsites.net',
+  allowedCors, //'https://twitchfighter.azurewebsites.net',
 ];
-
-console.log("allowList is: " + allowList);
 
 const corsOptions = {
   origin: allowList
