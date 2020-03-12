@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as mongoose from 'mongoose';
 import * as bodyParser from 'body-parser';
-import * as cors from "cors";
+var cors = require('cors')
 import { RegisterControllers } from './registerControllers';
 import { RegisterMiddleware } from './register/middleware.registration';
 import * as environment from "./environments/environment";
@@ -14,11 +14,10 @@ const allowedCors = process.env.AllowedCors || 'https://twitchfigher.azurewebsit
 const allowList: string[] = [
   'http://localhost:4200',
   'http://localhost:8080',
-  '*twitch*',
   allowedCors, //'https://front-end-w.azurewebsites.net',
 ];
 
-const corsOptions: cors.CorsOptions = {
+const corsOptions = {
   origin: allowList
 };
 
