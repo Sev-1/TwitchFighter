@@ -16,6 +16,8 @@ const allowList: string[] = [
   'http://localhost:8080',
   'https://twitchfigher.azurewebsites.net',
   'https://twitchfigher-middleware.azurewebsites.net',
+  'http://twitchfigher.azurewebsites.net',
+  'http://twitchfigher-middleware.azurewebsites.net',
   allowedCors, //'https://front-end-w.azurewebsites.net',
 ];
 
